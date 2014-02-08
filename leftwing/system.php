@@ -24,8 +24,8 @@ function system(
         // mysql Server Connection Data
         // ----------------------------------------------
         "localhost",    // host
-        "stephan",      // username
-        "giro2002",     // password
+        "sqluser",      // username
+        "sqlpassword",     // password
         "leftwing",     // system database name
         // ==============================================
 
