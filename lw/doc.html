@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>leftWING Administration</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link href="doc.cs" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+        <div>
+            <h1>leftWING Documentation</h1>
+            <h2>Locating leftWING's Private and Public Folders</h2>
+            <p>
+                The correct placement of leftWING's files is of
+                sound importance for its reliable deployment. So let
+                us follow a sample installation that user <strong>igor</strong>
+                has choosen on his machine that hosts a webserver. It's not unlikely
+                that on this machine we have the following two folders:
+            </p>
+            <p class="code">
+                <span>Igor's home folder:</span>/home/igor/<br />
+                <span>webserver document root:</span>/var/www/htdocs/
+            </p>
+            <p>
+                Note that the webserver can &ndash; under no cirumstances &ndash;
+                access igor's home folder. Even if it fails for some reason the webserver wouldn't be able to serve
+                e.g. uninterpreted <strong>.php</strong> files containing passwords and
+                other secrets that are stored in this location. So this location is a very good one to
+                place the first folder <strong>leftwing/</strong> that
+                comes with leftwing.zip since it is exactly this folder that contains those
+                files of leftWING that never should be served directly by a webserver.
+            </p>
+            <p>
+                There are, however, files that must be served by the webserver
+                to let leftWING do its job. These files are located in
+                the second folder <strong>lw/</strong> that comes within leftWING.zip.
+                And so it is crucial to place this one somewhere <strong>within</strong> the
+                webserver's document root. Igor made the following decisions:
+            </p>
+            <p class="code">
+                <span>leftWING's private files</span>/home/igor/leftwing/<br />
+                <span>leftWING's public files: </span>/var/www/htdocs/lw/
+            </p>
+            <p>
+                After we have placed (or better: distributed) our files in a reliable way on igor's
+                machine we must assure that both of leftWING's two parts, the private as well as
+                the public one, get knowledge of each other in some way.
+            </p>
+            <h2>Connecting leftWING's Private and Public Folders</h2>
+            <p>
+                In order to let the public parts of leftWING applications know, where
+                they can find leftWING's private parts, it is a good (but not the only) idea to
+                locate a file named <strong>leftwing.php</strong> one folder above the
+                webserver's document root. This file may not contain anything else
+                but a single <strong>require_once</strong> including leftWING's
+                initial class file <strong>system.php</strong> that lives in leftWING's
+                private root folder:
+            </p>
+            <p class="code">
+                <span>File:</span>/var/www/leftwing.php<br />
+                <span>Content:</span>&lt;?php require_once "/home/igor/leftwing/system.php"; ?&gt;
+            </p>
+            <pre>
+&lt;?php
+namespace leftWING;
+require_once __DIR__ . "/lib/environment.php";
+function leftWING(
+    $absoluteWebRoot,
+    $customer,
+    $applicationShortcut,
+    $development){
+    
+    return environment::instantiate(
+        
+        // System Web Root
+        // The relative path to $_SERVER["DOCUMENT_ROOT"]
+        // Start and terminate with a '/'
+        // ..............................................
+        "/lw/",
+        
+        // mysql Server Connection Data
+        // ----------------------------
+        "localhost",    // host
+        "igor",      // username
+        "igorspassword",     // password
+        "leftwing",     // system database name
+
+        $absoluteWebRoot, $customer, $applicationShortcut, $development
+    );
+}
+function run(
+    $absoluteWebRoot,
+    $customer,
+    $applicationShortcut,
+    $development = false){
+    leftWING(
+        $absoluteWebRoot,
+        $customer,
+        $applicationShortcut,
+        $development)->handleRequest();
+}
+function javascript(
+    $absoluteWebRoot,
+    $customer,
+    $applicationShortcut,
+    $development = false){
+    leftWING(
+        $absoluteWebRoot,
+        $customer,
+        $applicationShortcut,
+        $development)->javascript();
+}
+?&lt;                
+            </pre>
+            <h2>leftWING Javascript</h2>
+            <p>
+                Essentially leftWINGjs is an object hierarchy providing functionality that is typical
+                for some type of web application.
+            </p>
+            <h3>Buttons</h3>
+            <p>
+                Buttons are merely <strong>triggers</strong> for click events. They do <strong>not listen</strong>
+                to click events and so they cannot react to click events on their own. We made this decision in
+                anticipation of button intensive applications that often want to listen to button clicks in one
+                location in order to handle those clicks within one part of code. The underlying problem that is
+                solved by button objects is the transformation of a keyboard events into a proper  mouse event.
+                This is a good idea since keyboard events don't ship with position information. This normally
+                can lead to e.g. lousy dialog popups in reaction of a button that has been pushed by pressing a
+                key on the keyboard. Button
+                objects
+            </p>
+                
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+ol.leftwing-menu{
+    display: block;
+    list-style: none;
+    background-color: black;
+    color: white;
+}
+ol.leftwing-menu li{
+    display: inline;
+    padding: 2px 2px;
+}

@@ -1,0 +1,3 @@
+$.post("db.php",function(data){
+    $("#returnfield").html(data);
+});

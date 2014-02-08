@@ -1,0 +1,75 @@
+.leftwing-no-wrap{
+    white-space: nowrap;
+}
+
+.leftwing-no-text-selection{
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.leftwing-link{
+    cursor: pointer;
+}
+.leftwing-click-target{
+    cursor: default;
+}
+div.leftwing-initializing-message{
+    
+    font-size: 48px;
+    margin-top: 100px;
+    text-align: center;
+    color: #999;
+}
+
+div.leftwing-progress-console{
+    position: fixed;
+    cursor: default;
+}
+
+div#leftwing-ajax-progress-console{
+    visibility: hidden;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    color: black;
+    border: 1px solid #666;
+    border-style: solid none none solid;
+}
+div#leftwing-ajax-progress-console > div:first-child{
+    border-bottom: 1px solid #666;
+    padding:2px 4px;
+    background-color: #ccc;
+}
+
+div#leftwing-ajax-progress-console > div > pre{
+
+    height: 100px;
+    overflow-y: scroll;
+    padding: 3px 5px;
+}
+
+pre.leftwing-html-structure{
+    
+    height: 300px;
+    overflow-y: scroll;
+    
+    border-style: solid;
+    border-width: 1px;
+    border-color: ThreeDShadow ThreeDLightShadow ThreeDLightShadow ThreeDShadow;
+    
+    padding: 10px 15px;
+    
+    color: black;
+    background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
